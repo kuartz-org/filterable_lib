@@ -1,4 +1,15 @@
 # frozen_string_literal: true
+require "active_support"
+require "active_support/core_ext/hash/indifferent_access"
+
+require "filterable/base"
+require "filterable/filter"
+require "filterable/filter_set"
+require "filterable/filter/string"
+require "filterable/filter/number"
+require "filterable/filter/date"
+require "filterable/filter/association"
+require "filterable/filter/boolean"
 
 module Filterable
   extend ActiveSupport::Concern
@@ -41,7 +52,7 @@ module Filterable
 
       sanitized_sort = payload[:sort]&.then do |sort|
         column_name, order = sort.to_h.entries.first
-        { column_name => order } if valid_sort?(column_name, order)
+        {column_name => order} if valid_sort?(column_name, order)
       end
 
       sanitized_sort ? result.reorder(sanitized_sort) : result

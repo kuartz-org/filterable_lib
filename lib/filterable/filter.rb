@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/module"
+
 module Filterable
   class Filter
     INPUT_LESS_OPERATORS = %w[empty not_empty].freeze
